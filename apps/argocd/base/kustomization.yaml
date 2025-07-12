@@ -1,6 +1,6 @@
 resources:
   - namespace.yaml
-  - deployment.yaml
+  - https://raw.githubusercontent.com/argoproj/argo-cd/refs/tags/v3.0.11/manifests/install.yaml
   - ingress.yaml
   - certificate.yaml
 
