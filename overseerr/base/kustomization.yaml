@@ -1,0 +1,9 @@
+resources:
+  - namespace.yaml
+  - certificate.yaml
+  - pvc.yaml
+  - deployment.yaml
+  - service.yaml
+  - ingress.yaml
+
+namespace: overseerr

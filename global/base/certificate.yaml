@@ -1,0 +1,16 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: zbmowrey-com-cert
+  namespace: cert-manager
+  annotations:
+    replicator.v1.mittwald.de/replication-allowed: "true"
+spec:
+  secretName: replace-me
+  issuerRef:
+    name: letsencrypt-prod
+    kind: ClusterIssuer
+  commonName: replace-me-domain
+  dnsNames:
+    - replace-me-domain
+    - replace-me-domain-wildcard

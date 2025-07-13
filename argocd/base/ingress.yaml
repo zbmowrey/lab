@@ -4,13 +4,13 @@ metadata:
   name: argocd-server-ingress
   namespace: argocd
   annotations:
-    cert-manager.io/cluster-issuer: letsencrypt
     nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
 spec:
+  ingressClassName: nginx
   tls:
     - hosts:
         - $(ARGO_DOMAIN)
-      secretName: argocd-tls
+      secretName: zbmowrey-com-tls
   rules:
     - host: $(ARGO_DOMAIN)
       http:
