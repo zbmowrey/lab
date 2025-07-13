@@ -5,6 +5,7 @@ metadata:
   namespace: cert-manager
   annotations:
     replicator.v1.mittwald.de/replication-allowed: "true"
+    replicator.v1.mittwald.de/replication-allowed-namespaces: "*"
 spec:
   secretName: replace-me
   issuerRef:
@@ -14,3 +15,15 @@ spec:
   dnsNames:
     - replace-me-domain
     - replace-me-domain-wildcard
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: zbmowrey-com-tls
+  namespace: default
+  annotations:
+    replicator.v1.mittwald.de/replicate-from: cert-manager/zbmowrey-com-tls
+type: kubernetes.io/tls
+data:
+  tls.key: ""
+  tls.crt: ""

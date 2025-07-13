@@ -1,0 +1,184 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: custom-default-backend
+  namespace: ingress
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: custom-default-backend
+  template:
+    metadata:
+      labels:
+        app: custom-default-backend
+    spec:
+      containers:
+        - name: default-backend
+          image: nginx:alpine
+          volumeMounts:
+            - name: html
+              mountPath: /usr/share/nginx/html
+      volumes:
+        - name: html
+          configMap:
+            name: custom-404-html
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: custom-default-backend
+  namespace: ingress
+spec:
+  ports:
+    - port: 80
+      targetPort: 80
+      protocol: TCP
+      name: http
+  selector:
+    app: custom-default-backend
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: custom-404-html
+  namespace: ingress
+data:
+  index.html: |
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8"/>
+        <title>404 - Lost in Cyberspace!</title>
+        <style>
+            @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+            
+            body {
+                margin: 0;
+                padding: 0;
+                background: radial-gradient(
+                        ellipse at center,  
+                        #000000 0%,  /* black core */  
+                        #220033 20%, /* deep purple glow */
+                        #4b0082 25%, /* indigo glow */
+                        #ff4500 35%, /* orange-red accretion disk */
+                        #000000 65%  /* fading back to black */
+                );
+                color: #fff;
+                font-family: 'Roboto', sans-serif;
+                height: 100vh;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                overflow: hidden;
+            }
+            
+            .container {
+                text-align: center;
+                max-width: 1200px;
+                padding: 20px;
+                animation: pop 1s ease-out;
+            }
+            
+            h1 {
+                font-size: 6em;
+                margin: 0;
+                color: #ffe600;
+                text-shadow: 4px 4px #bdaab0;
+                transform: rotate(-3deg);
+            }
+            
+            p {
+                font-size: 1.5em;
+                padding: 1em;
+                margin-top: 20px;
+                color: #fffbe0;
+            }
+            
+            .emoji {
+                font-size: 4em;
+                display: inline-block;
+                margin-top: 20px;
+                animation: float 2s infinite ease-in-out;
+            }
+            
+            a {
+                display: inline-block;
+                margin-top: 30px;
+                background: #ff2e63;
+                color: #ffffff;
+                text-decoration: none;
+                padding: 15px 30px;
+                border-radius: 50px;
+                font-size: 1.2em;
+                box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
+                transition: all 0.3s ease;
+            }
+            
+            a:hover {
+                background: #cc6802;
+                color: #fff;
+                transform: translateY(-5px) scale(1.05);
+                box-shadow: 0 12px 20px rgba(0, 0, 0, 0.5);
+            }
+            
+            @keyframes float {
+                0% {
+                    transform: translateY(0);
+                }
+                50% {
+                    transform: translateY(-15px);
+                }
+                100% {
+                    transform: translateY(0);
+                }
+            }
+            
+            @keyframes pop {
+                0% {
+                    transform: scale(0.5);
+                    opacity: 0;
+                }
+                100% {
+                    transform: scale(1);
+                    opacity: 1;
+                }
+            }
+        </style>
+    </head>
+    <body>
+    <div class="container">
+        <h1>404!</h1>
+        <div class="emoji">🚀🪐🤷‍♂️</div>
+        <p>Well, this is awkward…</p>
+        <p>The page you’re looking for has boldly gone where no page has gone before.</p>
+        <p>...or it just never existed. One of those two.</p>
+        <a href="/">Beam Me Home</a>
+    </div>
+    </body>
+    </html>
+
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: catch-all-ingress
+  namespace: ingress
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+spec:
+  tls:
+    - hosts:
+        - "*.zbmowrey.com"
+      secretName: zbmowrey-com-tls
+  rules:
+    - host: "*.zbmowrey.com"
+      http:
+        paths:
+          - pathType: Prefix
+            path: /
+            backend:
+              service:
+                name: custom-default-backend
+                port:
+                  number: 80

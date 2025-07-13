@@ -1,3 +1,4 @@
 resources:
   - cluster-issuer.yaml
   - certificate.yaml
+  - catch-all-ingress.yaml
