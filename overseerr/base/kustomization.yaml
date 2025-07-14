@@ -1,3 +1,5 @@
+namespace: overseerr
+
 resources:
   - namespace.yaml
   - certificate.yaml
@@ -5,5 +7,3 @@ resources:
   - deployment.yaml
   - service.yaml
   - ingress.yaml
-
-namespace: overseerr
