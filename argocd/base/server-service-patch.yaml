@@ -1,8 +1,0 @@
-# Switch to ClusterIP service type to limit access.
-
-apiVersion: v1
-kind: Service
-metadata:
-  name: argocd-server
-spec:
-  type: ClusterIP
