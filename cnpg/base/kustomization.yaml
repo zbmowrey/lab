@@ -1,17 +1,4 @@
 namespace: cnpg-system
 
 resources:
-    - namespace.yaml
-    - crd-backups.yaml
-    - crd-clusters.yaml
-    - crd-poolers.yaml
-    - crd-scheduled-backups.yaml
-    - service-account.yaml
-    - role-cluster.yaml
-    - role-binding.yaml
-    - configmap-cnpg-system.yaml
-    - service-webhook.yaml
-    - deployment-controller-manager.yaml
-    - webhook-mutating.yaml
-    - webhook-validating.yaml
-
+    - cnpg-operator-v1.26.0.yaml
