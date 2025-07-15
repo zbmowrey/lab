@@ -5,6 +5,7 @@ resources:
   - namespace.yaml
   - install.yaml
   - ingress.yaml
+  - app-cnpg.yaml
 
 #patches:
 #  # Patch to switch the argocd-server service type to ClusterIP
