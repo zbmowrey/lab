@@ -1,0 +1,18 @@
+# I'd
+
+namespace: nfs-provisioner
+resources:
+  - namespace.yaml
+  - github.com/kubernetes-sigs/nfs-subdir-external-provisioner//deploy
+
+# user intent statement
+# user intent clarification
+# context memory alignment
+# sub-model selection
+# sub-model execution & response processing
+# result aggregation
+# result evaluation
+# output formatting
+# thread management - do we need a new chat, starting at top? Are we recursion-capped?
+# thread response aggregation, evaluation, and output formatting
+# response delivery
