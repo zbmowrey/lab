@@ -9,7 +9,7 @@ spec:
   ingressClassName: public
   tls:
     - hosts:
-        - ""
+        - replace-me
       secretName: replace-me
   rules:
     - host: ""
