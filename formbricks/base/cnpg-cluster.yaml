@@ -1,0 +1,21 @@
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: formbricks
+spec:
+  instances: 1
+  imageName: ghcr.io/cloudnative-pg/postgresql:17
+  enableSuperuserAccess: true
+  storage:
+    size: 2Gi
+    storageClass: microk8s-hostpath
+  bootstrap:
+    initdb:
+      database: formbricks
+      owner: postgres
+      postInitSQL:
+        - CREATE EXTENSION IF NOT EXISTS vector;
+  postgresql:
+    parameters:
+      max_connections: "100"
+      shared_buffers: 128MB

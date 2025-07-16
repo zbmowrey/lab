@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: formbricks
+  labels:
+    app: formbricks
+spec:
+  selector:
+    app: formbricks
+  ports:
+    - name: http
+      port: 3000
+      targetPort: 3000
+  type: ClusterIP

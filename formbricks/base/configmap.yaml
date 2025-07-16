@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: formbricks-config
+data:
+  WEBAPP_URL: ""                 # Patched by overlay
+  NEXTAUTH_URL: ""               # Patched by overlay
+  EMAIL_VERIFICATION_DISABLED: "1"
+  PASSWORD_RESET_DISABLED: "1"
+  S3_FORCE_PATH_STYLE: "0"
+  MAIL_FROM: ""                  # Patched by overlay
+  MAIL_FROM_NAME: "ZBM Surveys"
+  SMTP_HOST: ""                  # Patched by overlay
+  SMTP_PORT: ""                  # Patched by overlay
+  SMTP_USER: ""                  # Patched by overlay

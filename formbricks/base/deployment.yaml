@@ -1,0 +1,100 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: formbricks
+  labels:
+    app: formbricks
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: formbricks
+  template:
+    metadata:
+      labels:
+        app: formbricks
+    spec:
+      containers:
+        - name: formbricks
+          image: ghcr.io/formbricks/formbricks:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 3000
+          env:
+            - name: WEBAPP_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: formbricks-config
+                  key: WEBAPP_URL
+            - name: NEXTAUTH_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: formbricks-config
+                  key: NEXTAUTH_URL
+            - name: MAIL_FROM
+              valueFrom:
+                configMapKeyRef:
+                  name: formbricks-config
+                  key: MAIL_FROM
+            - name: MAIL_FROM_NAME
+              valueFrom:
+                configMapKeyRef:
+                  name: formbricks-config
+                  key: MAIL_FROM_NAME
+            - name: SMTP_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: formbricks-config
+                  key: SMTP_HOST
+            - name: SMTP_PORT
+              valueFrom:
+                configMapKeyRef:
+                  name: formbricks-config
+                  key: SMTP_PORT
+            - name: SMTP_USER
+              valueFrom:
+                configMapKeyRef:
+                  name: formbricks-config
+                  key: SMTP_USER
+            - name: SMTP_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: smtp-password
+                  key: SMTP_PASSWORD
+            - name: DATABASE_URL
+              valueFrom:
+                secretKeyRef:
+                  name: formbricks-app
+                  key: uri
+            - name: NEXTAUTH_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: formbricks-secrets
+                  key: NEXTAUTH_SECRET
+            - name: ENCRYPTION_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: formbricks-secrets
+                  key: ENCRYPTION_KEY
+            - name: CRON_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: formbricks-secrets
+                  key: CRON_SECRET
+            - name: EMAIL_VERIFICATION_DISABLED
+              valueFrom:
+                configMapKeyRef:
+                  name: formbricks-config
+                  key: EMAIL_VERIFICATION_DISABLED
+            - name: PASSWORD_RESET_DISABLED
+              valueFrom:
+                configMapKeyRef:
+                  name: formbricks-config
+                  key: PASSWORD_RESET_DISABLED
+          volumeMounts:
+            - name: uploads
+              mountPath: /home/nextjs/apps/web/uploads
+      volumes:
+        - name: uploads
+          persistentVolumeClaim:
+            claimName: formbricks-uploads
