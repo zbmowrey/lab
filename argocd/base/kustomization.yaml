@@ -6,3 +6,4 @@ resources:
   - install.yaml
   - ingress.yaml
   - app-cnpg.yaml
+  - app-nfs-provisioner.yaml
