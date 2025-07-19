@@ -1,0 +1,6 @@
+
+namespace: mysql-operator
+
+resources:
+  - namespace.yaml
+  - operator-bundle.yaml

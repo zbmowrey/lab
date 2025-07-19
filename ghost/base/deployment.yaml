@@ -1,0 +1,59 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ghost
+  labels:
+    app: ghost
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ghost
+  template:
+    metadata:
+      labels:
+        app: ghost
+    spec:
+      containers:
+        - name: ghost
+          image: ghost:5-alpine
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 2368
+          env:
+            - name: url
+              value: ""     # Patched in overlay
+            - name: database__client
+              value: postgres
+            - name: database__connection__user
+              valueFrom:
+                secretKeyRef:
+                  name: replace-me
+                  key: user
+            - name: database__connection__database
+              valueFrom:
+                secretKeyRef:
+                  name: replace-me
+                  key: user
+            - name: mail__transport
+              value: SMTP
+            - name: mail__options__host
+              value: ""
+            - name: mail__options__port
+              value: ""
+            - name: mail__options__auth__user
+              value: ""
+            - name: mail__options__auth__pass
+              valueFrom:
+                secretKeyRef:
+                  name: replace-me
+                  key: user
+            - name: mail__from
+              value: ""
+          volumeMounts:
+            - name: uploads
+              mountPath: /var/lib/ghost/content
+      volumes:
+        - name: uploads
+          persistentVolumeClaim:
+            claimName: ghost-uploads

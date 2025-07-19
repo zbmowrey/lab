@@ -1,0 +1,22 @@
+apiVersion: pxc.percona.com/v1
+kind: PerconaXtraDBCluster
+metadata:
+  name: ghost-mysql
+spec:
+  crVersion: 1.13.0
+  secretsName: ghost-mysql-secrets
+  tls:
+    enabled: false
+  pxc:
+    size: 1
+    image: percona/percona-xtradb-cluster:8.0.36-29.1
+    volumeSpec:
+      persistentVolumeClaim:
+        storageClassName: microk8s-hostpath
+        resources:
+          requests:
+            storage: 2Gi
+  proxysql:
+    enabled: false
+  pmm:
+    enabled: false
