@@ -7,5 +7,6 @@ resources:
   - ingress.yaml
   - repository-secret.yaml
   - operator-postgres.yaml
+  - operator-mysql.yaml
   - app-nfs-provisioner.yaml
   - app-formbricks.yaml

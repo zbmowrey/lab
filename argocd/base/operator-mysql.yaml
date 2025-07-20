@@ -1,0 +1,21 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: mysql-operator
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: replace-me
+    targetRevision: main
+    path: overlays/prod/operator-mysql
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: mysql-system
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+      - ServerSideApply=true
