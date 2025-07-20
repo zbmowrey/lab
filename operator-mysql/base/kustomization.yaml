@@ -1,0 +1,9 @@
+namespace: mysql-system
+
+resources:
+    - namespace.yaml
+    # https://raw.githubusercontent.com/percona/percona-xtradb-cluster-operator/v1.17.0/deploy/bundle.yaml
+    - bundle.yaml
+
+# Example Cluster Deployment - Configure this to be Server-Side Apply in ArgoCD
+# https://raw.githubusercontent.com/percona/percona-xtradb-cluster-operator/v1.17.0/deploy/cr.yaml
