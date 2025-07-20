@@ -1,4 +1,5 @@
 resources:
   - cluster-issuer.yaml
-  - certificate.yaml
+  - tls-cert-secret.yaml
   - catch-all-ingress.yaml
+  - dns-api-secret.yaml

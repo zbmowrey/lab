@@ -1,7 +1,7 @@
 namespace: argocd
 
 resources:
-  - certificate.yaml
+  - tls-cert-secret.yaml
   - namespace.yaml
   - install.yaml
   - ingress.yaml

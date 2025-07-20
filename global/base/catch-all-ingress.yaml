@@ -169,10 +169,10 @@ metadata:
 spec:
   tls:
     - hosts:
-        - "*.zbmowrey.com"
-      secretName: zbmowrey-com-tls
+        - "*.replace-me"
+      secretName: domain-zbm001-cert
   rules:
-    - host: "*.zbmowrey.com"
+    - host: "replace-me"
       http:
         paths:
           - pathType: Prefix

@@ -9,7 +9,7 @@ spec:
   tls:
     - hosts:
         - $(ARGO_DOMAIN)
-      secretName: zbmowrey-com-tls
+      secretName: domain-zbm001-cert
   rules:
     - host: $(ARGO_DOMAIN)
       http:
