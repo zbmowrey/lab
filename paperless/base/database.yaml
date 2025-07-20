@@ -1,0 +1,33 @@
+# Test Procedure:
+
+# Get the Password:
+# kubectl get secret paperless-database-app -n paperless -o jsonpath="{.data.password}" | base64 -d
+
+# Exec into the Pod:
+# kubectl get pods -n paperless -l cnpg.io/cluster=paperless-database -o jsonpath='{.items[0].metadata.name}'; echo
+
+# Use psql to authenticate:
+# psql -h paperless-database-rw -U paperless -d paperless -p 5432
+
+# When prompted, paste the password. You should reach a PostgreSQL prompt.
+# You can then safely exit, having confirmed the database is accessible.
+
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: paperless-database
+spec:
+  instances: 1
+  imageName: ghcr.io/cloudnative-pg/postgresql:17
+  enableSuperuserAccess: false
+  storage:
+    size: 2Gi
+    storageClass: microk8s-hostpath
+  bootstrap:
+    initdb:
+      database: replace-me
+      owner: replace-me
+  postgresql:
+    parameters:
+      max_connections: "100"
+      shared_buffers: 128MB

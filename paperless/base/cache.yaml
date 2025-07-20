@@ -1,0 +1,52 @@
+# Test Procedure:
+#
+# VALKEY_PASSWORD=$(k get secret -n paperless SECRET_NAME_GOES_HERE -o jsonpath='{.data.VALKEY_PASSWORD}' | base64 --decode)
+# kubectl exec -n paperless -it deploy/valkey-paperless -- redis-cli -a "$VALKEY_PASSWORD" ping
+# kubectl exec -n paperless -it deploy/valkey-paperless -- redis-cli -a "$VALKEY_PASSWORD" set testkey "hello"
+# kubectl exec -n paperless -it deploy/valkey-paperless -- redis-cli -a "$VALKEY_PASSWORD" get testkey
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: valkey-paperless
+  labels:
+    app: valkey-paperless
+spec:
+  ports:
+    - port: 6379
+      name: redis
+  selector:
+    app: valkey-paperless
+  type: ClusterIP
+---
+
+# For now, I've decided to leave the base template as the primary source of configuration truth.
+# The overlay adds secret creation and environment variables to support authentication.
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: valkey-paperless
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: valkey-paperless
+  template:
+    metadata:
+      labels:
+        app: valkey-paperless
+    spec:
+      containers:
+        - name: valkey
+          image: valkey/valkey:8.1.3
+          ports:
+            - containerPort: 6379
+          resources:
+            requests:
+              memory: "256Mi"
+              cpu: "100m"
+            limits:
+              memory: "1Gi"
+              cpu: "500m"
+          # Environment variables and container arguments are managed in the overlay.

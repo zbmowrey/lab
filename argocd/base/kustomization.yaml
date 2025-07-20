@@ -10,3 +10,4 @@ resources:
   - operator-mysql.yaml
   - app-nfs-provisioner.yaml
   - app-formbricks.yaml
+  - app-paperless.yaml

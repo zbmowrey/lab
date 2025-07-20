@@ -1,0 +1,11 @@
+namespace: paperless
+
+resources:
+  - namespace.yaml
+  - tls-cert-secret.yaml
+  - pvc.yaml
+  - cache.yaml
+  - database.yaml
+  - deployment.yaml
+  - service.yaml
+  - ingress.yaml

@@ -1,0 +1,65 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: webserver
+  labels:
+    app: webserver
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: webserver
+  template:
+    metadata:
+      labels:
+        app: webserver
+    spec:
+      containers:
+        - name: webserver
+          image: ghcr.io/paperless-ngx/paperless-ngx:latest
+          imagePullPolicy: Always
+          env:
+            - name: PAPERLESS_URL
+              value: "replace-me"
+
+            - name: PAPERLESS_REDIS
+              value: "replace-me"
+
+            - name: PAPERLESS_DBHOST
+              valueFrom:
+                secretKeyRef:
+                  name: "replace-me"
+                  key: "replace-me"
+
+            - name: PAPERLESS_DBPASS
+              valueFrom:
+                secretKeyRef:
+                  name: "replace-me"
+                  key: "replace-me"
+
+          ports:
+            - containerPort: 8000
+          volumeMounts:
+            - name: data
+              mountPath: /usr/src/paperless/data
+            - name: media
+              mountPath: /usr/src/paperless/media
+            - name: export
+              mountPath: /usr/src/paperless/export
+            - name: consume
+              mountPath: /usr/src/paperless/consume
+      volumes:
+        - name: data
+          persistentVolumeClaim:
+            claimName: paperless-data
+        - name: media
+          persistentVolumeClaim:
+            claimName: paperless-media
+        - name: export
+          hostPath:
+            path: /mnt/paperless/export
+            type: DirectoryOrCreate
+        - name: consume
+          hostPath:
+            path: /mnt/paperless/consume
+            type: DirectoryOrCreate
