@@ -1,0 +1,6 @@
+namespace: mysql-operator
+
+resources:
+  - user-secret.yaml
+  - database.yaml
+  - db-init-job.yaml
