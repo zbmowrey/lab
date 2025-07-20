@@ -5,6 +5,7 @@ resources:
   - namespace.yaml
   - install.yaml
   - ingress.yaml
+  - repository-secret.yaml
   - operator-postgres.yaml
   - app-nfs-provisioner.yaml
   - app-formbricks.yaml
