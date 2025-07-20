@@ -5,6 +5,15 @@ metadata:
   namespace: argocd
 spec:
   project: default
+  info:
+    - name: "Description"
+      value: "Paperless-NGX is a DMS (Document Management System) for archiving and indexing documents."
+    - name: "Application"
+      value: "paperless-ngx"
+    - name: "Repository"
+      value: "https://github.com/zbmowrey/lab"
+    - name: "Environment"
+      value: "home-lab-001"
   source:
     repoURL: replace-me
     targetRevision: main
