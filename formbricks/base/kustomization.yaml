@@ -7,7 +7,6 @@ resources:
   - namespace.yaml
   - certificate.yaml
   - smtp-secret.yaml
-  - pvc-postgres.yaml
   - pvc-uploads.yaml
   - cnpg-cluster.yaml
   - configmap.yaml
