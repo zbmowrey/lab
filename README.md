@@ -107,12 +107,10 @@ All within the terms of the MIT License, of course!
 
 ## 👤 About
 
-Hi, I’m Zach Mowrey! I’m passionate about modern engineering, Kubernetes, and the intersection of technology and creativity.
-
-Check out my blog for more projects, musings, and technical deep-dives:
-
-👉 [https://zbmowrey.com](https://zbmowrey.com)
+Hi, I’m Zach Mowrey! I’m passionate about modern engineering, Kubernetes, and the intersection of technology 
+and creativity. My interests are not going to surprise anyone: computers, technology, programming, sci-fi,
+fantasy, tabletop gaming, software engineering, devops, sre, and learning new systems.
 
 ---
 
-Thanks for stopping by Kubernexus — may your pods always be healthy and your deployments smooth! 🚀
+Gratuitous Emoji: 🚀
