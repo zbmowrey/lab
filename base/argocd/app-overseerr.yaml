@@ -7,7 +7,7 @@ spec:
   source:
     repoURL: replace-me
     targetRevision: main
-    path: apps/overlays/prod/n8n
+    path: apps/overlays/prod/overseerr
   destination:
     server: https://kubernetes.default.svc
     namespace: overseerr
