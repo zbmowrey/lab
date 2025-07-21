@@ -57,12 +57,8 @@ data:
                 margin: 0;
                 padding: 0;
                 background: radial-gradient(
-                        ellipse at center,  
-                        #000000 0%,  /* black core */  
-                        #220033 20%, /* deep purple glow */
-                        #4b0082 25%, /* indigo glow */
-                        #ff4500 35%, /* orange-red accretion disk */
-                        #000000 65%  /* fading back to black */
+                        ellipse at center,
+                        #000000 0%, /* black core */ #220033 20%, /* deep purple glow */ #4b0082 25%, /* indigo glow */ #ff4500 35%, /* orange-red accretion disk */ #000000 65% /* fading back to black */
                 );
                 color: #fff;
                 font-family: 'Roboto', sans-serif;
@@ -153,7 +149,7 @@ data:
         <p>Well, this is awkward…</p>
         <p>The page you’re looking for has boldly gone where no page has gone before.</p>
         <p>...or it just never existed. One of those two.</p>
-        <a href="/">Beam Me Home</a>
+        <a href=>Beam Me Home</a>
     </div>
     </body>
     </html>
