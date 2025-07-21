@@ -1,0 +1,24 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: webserver
+spec:
+  ingressClassName: public
+  tls:
+    - hosts:
+        - your.domain.tld
+      # This secret is in tls-cert-secret.yaml - it is replicated from cert-manager namespace.- hosts:
+      # If you have an issue where you patch an app and the destination secret has empty fields, you
+      # can delete the secret and reapply this patch. Replicator should detect and populate the secret.
+      secretName: your-tls-cert-secret
+  rules:
+    - host: your.domain.tld
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: n8n-webserver
+                port:
+                  number: 8000

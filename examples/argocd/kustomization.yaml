@@ -1,0 +1,14 @@
+resources:
+  - path-to-argocd-base-folder
+
+patches:
+  - path: patch-configmap.yaml
+  - path: patch-argo-ingress.yaml
+  - path: patch-app-operator-postgres.yaml
+  - path: patch-app-operator-mysql.yaml
+  - path: patch-app-formbricks.yaml
+  - path: patch-app-nfs-provisioner.yaml
+  - path: patch-app-paperless.yaml
+  - path: patch-app-n8n.yaml
+
+namespace: argocd

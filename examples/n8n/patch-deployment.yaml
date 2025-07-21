@@ -1,0 +1,53 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: webserver
+spec:
+  template:
+    spec:
+      containers:
+        - name: webserver
+          env:
+            - name: N8N_PORT
+              value: "8000"
+            - name: N8N_PROTOCOL
+              value: "https"
+
+            - name: DB_TYPE
+              value: "postgresdb"
+
+            - name: DB_POSTGRESDB_HOST
+              valueFrom:
+                secretKeyRef:
+                  name: n8n-database-app
+                  key: host
+
+            - name: DB_POSTGRESDB_PORT
+              valueFrom:
+                secretKeyRef:
+                  name: n8n-database-app
+                  key: port
+
+            - name: DB_POSTGRESDB_DATABASE
+              valueFrom:
+                secretKeyRef:
+                  name: n8n-database-app
+                  key: dbname
+
+            - name: DB_POSTGRESDB_USER
+              valueFrom:
+                secretKeyRef:
+                  name: n8n-database-app
+                  key: user
+
+            - name: DB_POSTGRESDB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: n8n-database-app
+                  key: password
+
+            - name: QUEUE_BULL_REDIS_HOST
+              value: "valkey-n8n"
+
+            - name: QUEUE_BULL_REDIS_PORT
+              value: "6379"

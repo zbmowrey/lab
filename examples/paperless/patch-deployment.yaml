@@ -1,0 +1,65 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: webserver
+  annotations:
+
+    # This secret is automatically built from an item with the same name in 1Password.
+    # If the SMTP credentials change, we'll auto redeploy the app so it can continue
+    # to send email messages. This is done by the 1Password Kubernetes Operator.
+
+    operator.1password.io/item-path: "vaults/Kubernetes/items/your-smtp-secret-name"
+    operator.1password.io/item-name: "your-smtp-secret-name"
+    operator.1password.io/auto-restart: "true"
+spec:
+  template:
+    spec:
+      containers:
+        - name: webserver
+          env:
+            - name: PAPERLESS_URL
+              value: "https://paperless.domain.tld"
+            - name: PAPERLESS_TIME_ZONE
+              value: "America/New_York"
+            - name: PAPERLESS_TRAIN_TASK_CRON
+              value: "0 */4 * * *"
+            - name: PAPERLESS_REDIS
+              value: "redis://valkey-paperless:6379"
+            - name: PAPERLESS_DBNAME
+              value: paperless
+            - name: PAPERLESS_DBUSER
+              value: paperless
+            - name: PAPERLESS_EMAIL_FROM
+              value: "Paperless <no-reply@domain.tld>"
+            - name: PAPERLESS_EMAIL_USE_TLS
+              value: "true"
+            - name: PAPERLESS_DBHOST
+              valueFrom:
+                secretKeyRef:
+                  name: paperless-database-app
+                  key: host
+            - name: PAPERLESS_DBPASS
+              valueFrom:
+                secretKeyRef:
+                  name: paperless-database-app
+                  key: password
+            - name: PAPERLESS_EMAIL_HOST
+              valueFrom:
+                  secretKeyRef:
+                    name: your-smtp-secret-name
+                    key: host
+            - name: PAPERLESS_EMAIL_PORT
+              valueFrom:
+                secretKeyRef:
+                  name: your-smtp-secret-name
+                  key: port
+            - name: PAPERLESS_EMAIL_HOST_USER
+              valueFrom:
+                secretKeyRef:
+                  name: your-smtp-secret-name
+                  key: user
+            - name: PAPERLESS_EMAIL_HOST_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: your-smtp-secret-name
+                  key: password

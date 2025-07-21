@@ -1,0 +1,12 @@
+# Retrieved from https://my.1password.com/developer-tools/active/servers on server creation.
+# I'm not aware of a way to regenerate this short of complete re-creation of the server.
+
+1password-credentials.json
+
+# Generated in 1Password Connect server configuration: https://my.1password.com/developer-tools/active/servers
+# This is provided when you first create a 1Password Connect server in the Developer Portal, but if you've lost
+# that or want a new one, you can generate it by clicking on your server in the Developer Portal and then clicking
+# "Generate Token". When running 00-init or 02-secrets, we'll prompt for this token. You'll be given the OPTION to
+# save it to this file, but for security reasons you may not want to do that. The script will work regardless.
+
+1password-connect-token

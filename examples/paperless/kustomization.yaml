@@ -1,0 +1,9 @@
+namespace: paperless
+
+resources:
+  - path-to-paperless-base
+
+patches:
+  - path: patch-database.yaml
+  - path: patch-ingress.yaml
+  - path: patch-deployment.yaml

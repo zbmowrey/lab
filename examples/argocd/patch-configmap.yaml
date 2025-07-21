@@ -1,0 +1,59 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: argocd-gpg-keys-cm
+data:
+  # Replace this with your own --armor --gpg-key-id and content. This will enable ArgoCD to
+  # perform commit verification using your private signing key.
+  76DF10ED4B23AC3A: |-
+    -----BEGIN PGP PUBLIC KEY BLOCK-----
+
+    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
+    =46T9
+    -----END PGP PUBLIC KEY BLOCK-----

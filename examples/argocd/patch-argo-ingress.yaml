@@ -1,0 +1,21 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: argocd-server-ingress
+spec:
+  tls:
+    - hosts:
+        - domain.your.tld
+      secretName: your-tls-secret-name
+  rules:
+    - host: domain.your.tld
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: argocd-server
+                port:
+                  number: 443
+

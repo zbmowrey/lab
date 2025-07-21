@@ -1,0 +1,8 @@
+namespace: mysql-operator
+
+resources:
+  - path-to-mysql-operator-base
+
+# This Operator doesn't need Kustomize quite yet, but I'm leaving the configuration in place so my ArgoCD
+# app can be created in a consistent manner, and I can easily add Kustomize patches later if needed without
+# having to change the ArgoCD app configuration.

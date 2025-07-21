@@ -1,0 +1,12 @@
+namespace: n8n
+
+resources:
+  - path-to-n8n-base-folder
+  - tls-cert-secret.yaml
+
+patches:
+  - path: patch-cache.yaml
+  - path: patch-database.yaml
+  - path: patch-deployment.yaml
+  - path: patch-ingress.yaml
+  - path: patch-valkey-secret.yaml

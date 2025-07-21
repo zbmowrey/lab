@@ -1,0 +1,10 @@
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: paperless-database
+spec:
+  bootstrap:
+    initdb:
+      database: your-desired-database-name
+      owner: your-desired-database-owner-user
+      # You'll get db name and username from the paperless-database-app secret in the target namespace.

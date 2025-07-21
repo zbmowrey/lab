@@ -1,0 +1,20 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: formbricks
+spec:
+  tls:
+    - hosts:
+        - your.domain.tld
+      secretName: your-tls-secret-name
+  rules:
+    - host: your.domain.tld
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: formbricks
+                port:
+                  number: 3000

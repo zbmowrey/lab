@@ -1,0 +1,7 @@
+resources:
+  - path-to-excalidraw-base
+
+patches:
+  - path: ingress-patch.yaml
+
+namespace: excalidraw

@@ -1,0 +1,5 @@
+resources:
+  - path-to-overseerr-base
+
+patches:
+  - path: ingress-patch.yaml

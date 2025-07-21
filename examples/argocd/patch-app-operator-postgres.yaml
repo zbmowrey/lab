@@ -1,0 +1,7 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: cnpg-operator
+spec:
+  source:
+    repoURL: git@github.com:YourGithubUsername/YourRepoName.git

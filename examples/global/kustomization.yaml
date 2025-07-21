@@ -1,0 +1,10 @@
+resources:
+  - ../../../base/global/base
+
+patches:
+  - path: patch-tls-cert-secret.yaml
+  - path: patch-cluster-issuer.yaml
+  - path: patch-catch-all-ingress.yaml
+  - path: patch-dns-api-secret.yaml
+  - path: secret-slack-webhook.yaml
+  - path: secret-zbmowrey-com.yaml

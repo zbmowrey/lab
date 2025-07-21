@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: formbricks-config
+data:
+  WEBAPP_URL: "https://your.domain.tld"
+  NEXTAUTH_URL: "https://your.domain.tld"
+  MAIL_FROM: "no-reply@domain.tld"
+  SMTP_HOST: "your.smtp.domain"
+  SMTP_PORT: "port_goes_here"
+  SMTP_USER: "you@domain.tld"

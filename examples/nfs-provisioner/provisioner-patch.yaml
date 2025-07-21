@@ -1,0 +1,24 @@
+# patch_nfs_details.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: nfs-client-provisioner
+  name: nfs-client-provisioner
+spec:
+  template:
+    spec:
+      containers:
+        - name: nfs-client-provisioner
+          env:
+            # IP Address of your NFS server
+            - name: NFS_SERVER
+              value: 192.168.X.X
+            - name: NFS_PATH
+              value: /YourNfsVolumePathGoesHere
+      volumes:
+        - name: nfs-client-root
+          nfs:
+            # IP Address of your NFS server
+            server: 192.168.X.X
+            path: /YourNfsVolumePathGoesHere

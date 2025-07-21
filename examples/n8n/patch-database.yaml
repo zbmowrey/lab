@@ -1,0 +1,10 @@
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: n8n-database
+spec:
+  bootstrap:
+    initdb:
+      database: your-preferred-database-name
+      owner: your-preferred-database-owner-username
+      # You'll retrieve the database name and username from the n8n-database-app secret in the target namespace.

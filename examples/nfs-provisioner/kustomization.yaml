@@ -1,0 +1,8 @@
+namespace: nfs-provisioner
+
+resources:
+  - path-to-nfs-provisioner-base
+
+patches:
+  - path: provisioner-patch.yaml
+
