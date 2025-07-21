@@ -16,7 +16,7 @@ spec:
   source:
     repoURL: replace-me
     targetRevision: main
-    path: overlays/prod/paperless
+    path: apps/overlays/prod/paperless
   destination:
     server: https://kubernetes.default.svc
     namespace: paperless

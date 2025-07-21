@@ -7,7 +7,7 @@ spec:
   source:
     repoURL: replace-me
     targetRevision: main
-    path: overlays/prod/nfs-provisioner
+    path: apps/overlays/prod/nfs-provisioner
   destination:
     server: https://kubernetes.default.svc
     namespace: nfs-provisioner

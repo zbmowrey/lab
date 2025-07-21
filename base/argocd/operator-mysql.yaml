@@ -7,7 +7,7 @@ spec:
   source:
     repoURL: replace-me
     targetRevision: main
-    path: overlays/prod/operator-mysql
+    path: apps/overlays/prod/operator-mysql
   destination:
     server: https://kubernetes.default.svc
     namespace: mysql-system

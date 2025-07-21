@@ -7,7 +7,7 @@ spec:
   source:
     repoURL: replace-me
     targetRevision: main
-    path: overlays/prod/formbricks
+    path: apps/overlays/prod/formbricks
   destination:
     server: https://kubernetes.default.svc
     namespace: formbricks

@@ -7,7 +7,7 @@ spec:
   source:
     repoURL: replace-me
     targetRevision: main
-    path: overlays/prod/n8n
+    path: apps/overlays/prod/n8n
   destination:
     server: https://kubernetes.default.svc
     namespace: n8n

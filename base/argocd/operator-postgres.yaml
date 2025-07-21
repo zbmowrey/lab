@@ -7,7 +7,7 @@ spec:
   source:
     repoURL: replace-me
     targetRevision: main
-    path: overlays/prod/operator-postgres
+    path: apps/overlays/prod/operator-postgres
   destination:
     server: https://kubernetes.default.svc
     namespace: cnpg-system
