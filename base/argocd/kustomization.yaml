@@ -13,3 +13,4 @@ resources:
   - app-paperless.yaml
   - app-n8n.yaml
   - app-excalidraw.yaml
+  - app-overseerr.yaml
