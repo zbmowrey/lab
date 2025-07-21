@@ -14,3 +14,4 @@ resources:
   - app-n8n.yaml
   - app-excalidraw.yaml
   - app-overseerr.yaml
+  - app-global-resources.yaml
