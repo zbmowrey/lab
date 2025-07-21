@@ -12,3 +12,4 @@ resources:
   - app-formbricks.yaml
   - app-paperless.yaml
   - app-n8n.yaml
+  - app-excalidraw.yaml
