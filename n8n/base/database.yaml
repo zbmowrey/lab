@@ -1,0 +1,33 @@
+# Test Procedure:
+
+# Get the Password:
+# kubectl get secret n8n-database-app -n n8n -o jsonpath="{.data.password}" | base64 -d
+
+# Exec into the Pod:
+# kubectl get pods -n n8n -l cnpg.io/cluster=n8n-database -o jsonpath='{.items[0].metadata.name}'; echo
+
+# Use psql to authenticate:
+# psql -h n8n-database-rw -U n8n -d n8n -p 5432
+
+# When prompted, paste the password. You should reach a PostgreSQL prompt.
+# You can then safely exit, having confirmed the database is accessible.
+
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: n8n-database
+spec:
+  instances: 1
+  imageName: ghcr.io/cloudnative-pg/postgresql:17
+  enableSuperuserAccess: false
+  storage:
+    size: 2Gi
+    storageClass: microk8s-hostpath
+  bootstrap:
+    initdb:
+      database: replace-me
+      owner: replace-me
+  postgresql:
+    parameters:
+      max_connections: "100"
+      shared_buffers: 128MB

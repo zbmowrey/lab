@@ -1,0 +1,75 @@
+# Test Procedure:
+#
+# VALKEY_PASSWORD=$(k get secret -n n8n SECRET_NAME_GOES_HERE -o jsonpath='{.data.VALKEY_PASSWORD}' | base64 --decode)
+# kubectl exec -n n8n -it deploy/valkey-n8n -- redis-cli -a "$VALKEY_PASSWORD" ping
+# kubectl exec -n n8n -it deploy/valkey-n8n -- redis-cli -a "$VALKEY_PASSWORD" set testkey "hello"
+# kubectl exec -n n8n -it deploy/valkey-n8n -- redis-cli -a "$VALKEY_PASSWORD" get testkey
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: valkey-n8n
+  labels:
+    app: valkey-n8n
+spec:
+  ports:
+    - port: 6379
+      name: redis
+  selector:
+    app: valkey-n8n
+  type: ClusterIP
+---
+# Control the startup configuration of Valkey using a ConfigMap. In this case, we require a password
+# which is provided through the VALKEY_PASSWORD environment variable.
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: valkey-config
+data:
+  valkey.conf: |
+    bind 0.0.0.0
+    port 6379
+    requirepass $(VALKEY_PASSWORD)
+---
+
+# Deploy the Valkey server. Note that environment configuration is set entirely in the overlay/patch.
+# I do this because lists in manifests can be tricky in patches, where trying to patch a single item
+# could result in the entire list being replaced. In this case, there aren't a lot of env vars to set,
+# but it's easier to make it a habit.
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: valkey-n8n
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: valkey-n8n
+  template:
+    metadata:
+      labels:
+        app: valkey-n8n
+    spec:
+      volumes:
+        - name: valkey-config
+          configMap:
+            name: valkey-config
+      containers:
+        - name: valkey
+          image: valkey/valkey:8.1.3
+          command: [ "valkey-server" ]
+          args: [ "/etc/valkey/valkey.conf" ]
+          volumeMounts:
+            - name: valkey-config
+              mountPath: /etc/valkey/
+          ports:
+            - containerPort: 6379
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "256Mi"
+            limits:
+              cpu: "1000m"
+              memory: "8Gi"

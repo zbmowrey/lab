@@ -1,0 +1,21 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: webserver
+spec:
+  ingressClassName: public
+  tls:
+    - hosts:
+        - replace-me.example.com
+      secretName: replace-me
+  rules:
+    - host: replace-me.example.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: webserver
+                port:
+                  number: 8000

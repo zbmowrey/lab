@@ -1,0 +1,8 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: your-deployment-name
+  annotations:
+    operator.1password.io/item-path: "vaults/Kubernetes/items/replace-me-secret-name"
+    operator.1password.io/item-name: "replace-me-secret-name"
+    operator.1password.io/auto-restart: "true"
