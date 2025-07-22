@@ -38,6 +38,8 @@ spec:
   haproxy:
     enabled: true
     size: 1
+    affinity:
+      podAntiAffinity: null
     image: percona/haproxy:2.8.14
     resources:
       requests:
