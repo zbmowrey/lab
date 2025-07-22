@@ -10,8 +10,7 @@ spec:
   secretsName: mysql-database-users
   unsafeFlags:
     pxcSize: true
-  affinity:
-    podAntiAffinity: null
+    proxySize: true
   tls:
     enabled: true
   updateStrategy: SmartUpdate
