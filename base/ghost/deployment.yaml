@@ -1,0 +1,79 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: webserver
+  namespace: ghost
+  labels:
+    app: webserver
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: webserver
+  template:
+    metadata:
+      labels:
+        app: webserver
+    spec:
+      containers:
+        - name: webserver
+          image: ghost:5-alpine
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 2368
+          env:
+            - name: url
+              value: "https://zbmowrey.com"
+            - name: database__connection__password
+              valueFrom:
+                secretKeyRef:
+                  name: ghost-database-user
+                  key: database-password
+
+            - name: database__connection__host
+              value: "ghost-db-haproxy.mysql-operator.svc.cluster.local"
+
+            - name: database__connection__user
+              valueFrom:
+                secretKeyRef:
+                  name: ghost-database-user
+                  key: database-user
+
+            - name: database__connection__database
+              valueFrom:
+                secretKeyRef:
+                  name: ghost-database-user
+                  key: database-name
+
+
+            - name: mail__transport
+              value: SMTP
+            - name: mail__options__host
+              valueFrom:
+                secretKeyRef:
+                  name: smtp-password
+                  key: host
+            - name: mail__options__port
+              valueFrom:
+                secretKeyRef:
+                  name: smtp-password
+                  key: port
+            - name: mail__options__auth__user
+              valueFrom:
+                secretKeyRef:
+                  name: smtp-password
+                  key: user
+            - name: mail__options__auth__pass
+              valueFrom:
+                secretKeyRef:
+                  name: smtp-password
+                  key: password
+            - name: mail__from
+              value: "Blog <no-reply@zbmowrey.com>"
+          volumeMounts:
+            - name: uploads
+              mountPath: /var/lib/ghost/content
+      volumes:
+        - name: uploads
+          persistentVolumeClaim:
+            claimName: ghost-uploads

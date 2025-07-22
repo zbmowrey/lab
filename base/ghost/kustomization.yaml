@@ -1,0 +1,13 @@
+# Do NOT apply a namespace here. See NAMESPACING.md for details.
+
+resources:
+  - namespace.yaml
+  - tls-certificate-secret.yaml
+  - smtp-secret.yaml
+  - pvc.yaml
+  - database.yaml
+  - db-init-job.yaml
+  - user-secrets.yaml
+  - deployment.yaml
+  - service.yaml
+  - ingress.yaml

@@ -1,0 +1,8 @@
+namespace: mysql-operator
+
+resources:
+  - ../base
+
+patches:
+  - path: patch-user-secret.yaml
+  - path: patch-db-init-job.yaml
