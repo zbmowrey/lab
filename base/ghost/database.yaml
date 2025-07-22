@@ -8,6 +8,8 @@ metadata:
 spec:
   crVersion: 1.17.0
   secretsName: mysql-database-users
+  unsafeFlags:
+    pxcSize: true
   tls:
     enabled: true
   updateStrategy: SmartUpdate
@@ -18,6 +20,8 @@ spec:
   pxc:
     size: 1                   # <-- single node
     image: percona/percona-xtradb-cluster:8.0.41-32.1
+    affinity:
+      podAntiAffinity: null
     autoRecovery: true
     resources:
       requests:
