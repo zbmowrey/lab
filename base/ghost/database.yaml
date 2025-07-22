@@ -16,17 +16,15 @@ spec:
     apply: disabled
     schedule: "0 4 * * *"
   pxc:
-    size: 3
+    size: 1                   # <-- single node
     image: percona/percona-xtradb-cluster:8.0.41-32.1
     autoRecovery: true
     resources:
       requests:
         memory: 1G
         cpu: 500m
-    affinity:
-      antiAffinityTopologyKey: "kubernetes.io/hostname"
     podDisruptionBudget:
-      maxUnavailable: 1
+      maxUnavailable: 0
     volumeSpec:
       persistentVolumeClaim:
         resources:
@@ -35,18 +33,18 @@ spec:
     gracePeriod: 600
   haproxy:
     enabled: true
-    size: 3
+    size: 1
     image: percona/haproxy:2.8.14
     resources:
       requests:
         memory: 512Mi
         cpu: 250m
     podDisruptionBudget:
-      maxUnavailable: 1
+      maxUnavailable: 0
     gracePeriod: 30
   proxysql:
     enabled: false
-    size: 3
+    size: 1
     image: percona/proxysql2:2.7.1
     resources:
       requests:
