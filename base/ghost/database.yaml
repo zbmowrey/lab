@@ -22,7 +22,7 @@ spec:
     resources:
       requests:
         memory: 1G
-        cpu: 600m
+        cpu: 500m
     affinity:
       antiAffinityTopologyKey: "kubernetes.io/hostname"
     podDisruptionBudget:
@@ -39,8 +39,8 @@ spec:
     image: percona/haproxy:2.8.14
     resources:
       requests:
-        memory: 1G
-        cpu: 600m
+        memory: 512Mi
+        cpu: 250m
     podDisruptionBudget:
       maxUnavailable: 1
     gracePeriod: 30
@@ -50,8 +50,8 @@ spec:
     image: percona/proxysql2:2.7.1
     resources:
       requests:
-        memory: 1G
-        cpu: 600m
+        memory: 512Mi
+        cpu: 500m
     volumeSpec:
       persistentVolumeClaim:
         resources:
