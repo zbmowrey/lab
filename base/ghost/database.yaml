@@ -41,8 +41,6 @@ spec:
       requests:
         memory: 1G
         cpu: 600m
-    affinity:
-      antiAffinityTopologyKey: "kubernetes.io/hostname"
     podDisruptionBudget:
       maxUnavailable: 1
     gracePeriod: 30
@@ -54,8 +52,6 @@ spec:
       requests:
         memory: 1G
         cpu: 600m
-    affinity:
-      antiAffinityTopologyKey: "kubernetes.io/hostname"
     volumeSpec:
       persistentVolumeClaim:
         resources:
