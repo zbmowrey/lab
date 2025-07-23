@@ -6,7 +6,7 @@ resources:
   - smtp-secret.yaml
   - pvc.yaml
   - database.yaml
-  # After the initial deployment, we comment this so that ArgoCD won't see it as failing when the job TTLs out. 
+  # After the initial deployment, we comment this so that ArgoCD won't see it as failing when the job TTLs out.
   # - db-init-job.yaml
   - user-secrets.yaml
   - deployment.yaml
