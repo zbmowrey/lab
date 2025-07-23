@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: docmost
+  labels:
+    app: docmost
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: docmost
+  template:
+    metadata:
+      labels:
+        app: docmost
+    spec:
+      containers:
+        - name: docmost
+          image: docmost/docmost:latest
+          ports:
+            - containerPort: 3000
+          env:
+            - name: APP_URL
+              value: "http://localhost:3000"  # Consider updating for real external URL if needed
+            - name: APP_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: docmost-secret
+                  key: app-secret
+
+            - name: DATABASE_URL
+              valueFrom:
+                secretKeyRef:
+                  name: docmost-app
+                  key: uri
+
+            - name: REDIS_URL
+              value: "redis://cache:6379"
+
+          volumeMounts:
+            - name: docmost-storage
+              mountPath: /app/data/storage
+          restartPolicy: Always
+      volumes:
+        - name: docmost-storage
+          persistentVolumeClaim:
+            claimName: docmost-storage-pvc

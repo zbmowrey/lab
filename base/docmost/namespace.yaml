@@ -1,0 +1,11 @@
+# namespace docmost
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: docmost
+  labels:
+    app: docmost
+    app.kubernetes.io/name: docmost
+    app.kubernetes.io/instance: docmost
+    app.kubernetes.io/part-of: docmost
+    app.kubernetes.io/usage: production

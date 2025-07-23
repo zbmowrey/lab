@@ -1,0 +1,11 @@
+namespace: docmost
+
+resources:
+  - namespace.yaml
+  - tls-cert-secret.yaml
+  - cache.yaml
+  - database.yaml
+  - pvc.yaml
+  - deployment.yaml
+  - service.yaml
+  - ingress.yaml

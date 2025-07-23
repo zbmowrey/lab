@@ -15,11 +15,13 @@ STEPS=(
   "Addons: Configure the K8S Cluster with Essential Addons (Storage, DNS, Ingress, Cert-Manager)"
   "Secrets: Configure 1Password Operator & Connect for Secrets Management"
   "Replicator: Install Kubernetes Replicator to handle cloning of secrets and configmaps across namespaces"
+  "Reloader: Install Reloader to automatically redeploy pods when secrets or configmaps change"
 )
 SCRIPTS=(
   "$SCRIPT_DIR/01-addons.sh"
   "$SCRIPT_DIR/02-secrets.sh"
   "$SCRIPT_DIR/03-kubernetes-replicator.sh"
+  "$SCRIPT_DIR/04-reloader.sh"
 )
 HELP=(
   "Checks and enables core addons for the cluster, currently: cert-manager, cis-hardening, dashboard, dns, gpu, hostpath-storage, ingress, metrics-server"
@@ -31,6 +33,7 @@ will result in automatic redeployment."
   "Installs the [Kubernetes Replicator](https://github.com/mittwald/kubernetes-replicator),
 which allows us to clone secrets and configmaps across namespaces. This is useful for
 sharing secrets between different namespaces in a secure way."
+  "Installs the [Reloader](https://github.com/stakater/Reloader) to automatically redeploy pods on detection of changes to their associated secrets or configmaps."
 )
 
 # --- Banner ---
