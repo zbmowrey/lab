@@ -9,12 +9,14 @@ section "Kubernetes Addons: Enabling Essential Addons"
 
 REMOTE_HOST="jarvis"
 
+# Note that cis-hardening forces you to use 'sudo microk8s' instead of 'microk8s' when
+# working on the remote host. On my workstation, kubectl seems to work find on its own.
+
 ADDONS=(
   cert-manager
   cis-hardening
   dashboard
   dns
-  gpu
   hostpath-storage
   ingress
   metrics-server

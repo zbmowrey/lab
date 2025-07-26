@@ -60,7 +60,7 @@ spec:
               valueFrom:
                 secretKeyRef:
                   name: smtp-password
-                  key: SMTP_PASSWORD
+                  key: password
             - name: DATABASE_URL
               valueFrom:
                 secretKeyRef:

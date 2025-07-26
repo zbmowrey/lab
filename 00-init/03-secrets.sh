@@ -9,7 +9,7 @@ source "$SCRIPT_DIR/lib/styles.sh"
 
 
 NAMESPACE="1password"
-CREDENTIAL_FILE="1password-credentials.json"
+CREDENTIAL_FILE="${SCRIPT_DIR}/1password-credentials.json"
 UPGRADE_MODE=false
 
 # --- 1. Prerequisites ---
@@ -125,7 +125,7 @@ success "Helm repos updated."
 section "1Password Connect Token"
 
 # Where do we look for the token?
-TOKEN_FILE="1password-connect-token"
+TOKEN_FILE="${SCRIPT_DIR}/1password-connect-token"
 
 function validate_jwt() {
   local token="$1"

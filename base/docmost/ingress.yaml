@@ -1,19 +1,19 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: docmost-ingress
+  name: docmost
   annotations:
-    kubernetes.io/ingress.class: nginx
     nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
   labels:
     app: docmost
 spec:
+  ingressClassName: public
   tls:
     - hosts:
-        - docs.zbmowrey.com
-      secretName: domain-zbm001-tls
+        - replace-me
+      secretName: replace-me
   rules:
-    - host: docs.zbmowrey.com
+    - host: replace-me
       http:
         paths:
           - path: /

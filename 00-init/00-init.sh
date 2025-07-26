@@ -12,28 +12,36 @@ source "$SCRIPT_DIR/lib/styles.sh"
 
 # --- Step Definitions ---
 STEPS=(
-  "Addons: Configure the K8S Cluster with Essential Addons (Storage, DNS, Ingress, Cert-Manager)"
-  "Secrets: Configure 1Password Operator & Connect for Secrets Management"
-  "Replicator: Install Kubernetes Replicator to handle cloning of secrets and configmaps across namespaces"
-  "Reloader: Install Reloader to automatically redeploy pods when secrets or configmaps change"
+  "Cluster Setup: Install MicroK8s and Get KubeConfig"
+  "Addons: Enable Core Addons"
+  "Secrets: Install 1Password Operator and Connect Server"
+  "Kubernetes Replicator: Install and Configure"
+  "Reloader: Install and Configure"
+  "Kustomize Global: Apply Global Infrastructure Configuration"
 )
 SCRIPTS=(
-  "$SCRIPT_DIR/01-addons.sh"
-  "$SCRIPT_DIR/02-secrets.sh"
-  "$SCRIPT_DIR/03-kubernetes-replicator.sh"
-  "$SCRIPT_DIR/04-reloader.sh"
+  "$SCRIPT_DIR/01-cluster-setup.sh"
+  "$SCRIPT_DIR/02-addons.sh"
+  "$SCRIPT_DIR/03-secrets.sh"
+  "$SCRIPT_DIR/04-kubernetes-replicator.sh"
+  "$SCRIPT_DIR/05-reloader.sh"
+  "$SCRIPT_DIR/06-kustomize-global.sh"
 )
 HELP=(
-  "Checks and enables core addons for the cluster, currently: cert-manager, cis-hardening, dashboard, dns, gpu, hostpath-storage, ingress, metrics-server"
-  "This step installs and configures the [1Password Operator and Connect Server]
-(https://developer.1password.com/docs/k8s/operator/?deployment-type=helm) so we
-can define and manage secrets in 1Password. Secrets can automatically be pulled
-into Kubernetes as part of deployments, and if done correctly, updated secrets
-will result in automatic redeployment."
-  "Installs the [Kubernetes Replicator](https://github.com/mittwald/kubernetes-replicator),
-which allows us to clone secrets and configmaps across namespaces. This is useful for
-sharing secrets between different namespaces in a secure way."
-  "Installs the [Reloader](https://github.com/stakater/Reloader) to automatically redeploy pods on detection of changes to their associated secrets or configmaps."
+  "Cluster Setup: Install microk8s snap, start it, add the SSH user to the microk8s group, then export/copy ~/.kube/config to the local machine."
+  "Enable essential Kubernetes addons:
+  cert-manager
+  cis-hardening
+  dashboard
+  dns
+  gpu
+  hostpath-storage
+  ingress
+  metrics-server"
+  "Install the 1Password Operator and connect it to your 1Password account for secrets management. Requires JWT Access Token and Credentials JSON file."
+  "Install Kubernetes Replicator to sync secrets and configmaps across namespaces."
+  "Install Reloader to automatically reload pods when ConfigMaps or Secrets change."
+  "This creates the letsencrypt cluster issuer, DNS API secret (1pass), wildcard TLS certificate & secret, and a catch-all 404 ingress page."
 )
 
 # --- Banner ---

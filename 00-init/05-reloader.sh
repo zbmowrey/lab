@@ -5,14 +5,14 @@ SCRIPT_PATH="$(readlink -f "$0")"
 SCRIPT_DIR="$(dirname "$SCRIPT_PATH")"
 source "$SCRIPT_DIR/lib/styles.sh"
 
-APP_NAME="kubernetes-replicator"
+APP_NAME="reloader"
 NAMESPACE="default"
-REPO_NAME="mittwald"
-REPO_URL="https://helm.mittwald.de"
+REPO_NAME="stakater"
+REPO_URL="https://stakater.github.io/stakater-charts"
 CHART="${REPO_NAME}/${APP_NAME}"
-DESIRED_VERSION="latest" # You can set a fixed version here
+DESIRED_VERSION="v1.4.5" # avoid "latest" - this tag does not exist and is anti-pattern
 
-section "Kubernetes Replicator: Smart Helm Installer"
+section "Installing Reloader with Helm"
 
 # --- Helper Functions ---
 function helm_installed() {
@@ -45,41 +45,45 @@ else
   success "Namespace ${BOLD}${CYAN}$NAMESPACE${RESET} created."
 fi
 
-# --- Main Logic ---
+# --- Add/Update Helm Repo ---
+section "Helm Repository Setup"
 info "Adding or updating helm repo: $REPO_NAME"
-helm repo add "$REPO_NAME" "$REPO_URL" &>/dev/null || helm repo update "$REPO_NAME" &>/dev/null
+if helm repo add "$REPO_NAME" "$REPO_URL" &>/dev/null; then
+  success "Helm repo ${BOLD}${CYAN}$REPO_NAME${RESET} added."
+else
+  info "Helm repo ${BOLD}${CYAN}$REPO_NAME${RESET} already exists, updating..."
+fi
 helm repo update &>/dev/null
-success "Helm repo ready."
+success "Helm repo updated."
 
+# --- Install or Upgrade Reloader ---
 if helm_installed; then
-  # Installed, check chart & app version
   INSTALLED_CHART_VER="$(get_installed_chart_version)"
   LATEST_CHART_VER="$(get_latest_chart_version)"
   INSTALLED_APP_VER="$(get_installed_app_version)"
   LATEST_APP_VER="$(get_latest_app_version)"
 
-  section "Replicator Already Installed"
-  info "Current chart: ${BOLD}${CYAN}$INSTALLED_CHART_VER${RESET} (latest: ${LATEST_CHART_VER})"
-  info "Current app: ${BOLD}${CYAN}$INSTALLED_APP_VER${RESET} (latest: ${LATEST_APP_VER})"
+  section "Reloader Already Installed"
+  info "Installed chart version: ${BOLD}${CYAN}$INSTALLED_CHART_VER${RESET} (latest: ${LATEST_CHART_VER})"
+  info "Installed app version: ${BOLD}${CYAN}$INSTALLED_APP_VER${RESET} (latest: ${LATEST_APP_VER})"
 
-  # Smart update logic
   if [[ "$INSTALLED_APP_VER" == "$LATEST_APP_VER" ]]; then
-    success "Replicator is already up to date! No action needed."
+    success "Reloader is already up to date! No action needed."
   else
-    info "Update required. Here’s what will change:"
+    info "Upgrade available:"
     echo -e "    App version:   ${YELLOW}${INSTALLED_APP_VER}${RESET} ${ARROW} ${GREEN}${LATEST_APP_VER}${RESET}"
 
     prompt "Proceed with upgrade? [${BOLD}Y${RESET}/${DIM}n${RESET}]: "
     read -r CONFIRM
     if [[ "$CONFIRM" =~ ^([yY][eE][sS]|[yY]|"")$ ]]; then
-      info "Upgrading to chart ${GREEN}${LATEST_CHART_VER}${RESET}, app ${GREEN}${LATEST_APP_VER}${RESET}..."
+      info "Upgrading ${APP_NAME} to chart ${GREEN}${LATEST_CHART_VER}${RESET}, app ${GREEN}${LATEST_APP_VER}${RESET}..."
       helm upgrade "$APP_NAME" "$CHART" \
         --namespace "$NAMESPACE" \
         --set logLevel=info \
         --set logFormat=json \
-        --set image.repository=ghcr.io/mittwald/kubernetes-replicator \
+        --set image.repository=stakater/reloader \
         --set image.tag="$DESIRED_VERSION"
-      success "Replicator upgraded!"
+      success "Reloader upgraded successfully."
     else
       info "Upgrade cancelled by user."
       exit 0
@@ -87,18 +91,17 @@ if helm_installed; then
   fi
 
 else
-  section "Replicator Not Found"
-  info "Replicator not found in namespace ${BOLD}${CYAN}$NAMESPACE${RESET}."
+  section "Reloader Not Found"
   info "Installing ${BOLD}${CYAN}$APP_NAME${RESET} in namespace ${BOLD}${CYAN}$NAMESPACE${RESET}..."
   helm install "$APP_NAME" "$CHART" \
     --namespace "$NAMESPACE" \
     --create-namespace \
     --set logLevel=info \
     --set logFormat=json \
-    --set image.repository=ghcr.io/mittwald/kubernetes-replicator \
+    --set image.repository=stakater/reloader \
     --set image.tag="$DESIRED_VERSION"
-  success "Replicator installed!"
+  success "Reloader installed successfully."
 fi
 
-section "Helm Replicator Script Complete"
-success "Kubernetes-Replicator Install/Update Complete."
+section "Reloader Installation Script Complete"
+success "Stakater Reloader install/update process finished."

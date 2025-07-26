@@ -4,6 +4,14 @@ metadata:
   name: docmost
   labels:
     app: docmost
+  annotations:
+    # Auto-restart the pod(s) if secret or CM change.
+    reloader.stakater.com/auto: "true"
+    reloader.stakater.com/rollout-strategy: "restart"
+
+    # Pull in 1Password secret for app key and other sensitive data.
+    operator.1password.io/item-path: "vaults/Kubernetes/items/replace-me"
+    operator.1password.io/item-name: "replace-me"
 spec:
   replicas: 1
   selector:
@@ -21,17 +29,17 @@ spec:
             - containerPort: 3000
           env:
             - name: APP_URL
-              value: "http://localhost:3000"  # Consider updating for real external URL if needed
+              value: "https://replace-me.com:3000"
             - name: APP_SECRET
               valueFrom:
                 secretKeyRef:
-                  name: docmost-secret
-                  key: app-secret
+                  name: replace-me
+                  key: replace-me
 
             - name: DATABASE_URL
               valueFrom:
                 secretKeyRef:
-                  name: docmost-app
+                  name: replace-me
                   key: uri
 
             - name: REDIS_URL
@@ -40,7 +48,6 @@ spec:
           volumeMounts:
             - name: docmost-storage
               mountPath: /app/data/storage
-          restartPolicy: Always
       volumes:
         - name: docmost-storage
           persistentVolumeClaim:
