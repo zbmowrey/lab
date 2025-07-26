@@ -160,8 +160,6 @@ kind: Ingress
 metadata:
   name: catch-all-ingress
   namespace: ingress
-  annotations:
-    cert-manager.io/cluster-issuer: letsencrypt-prod
 spec:
   tls:
     - hosts:
