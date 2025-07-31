@@ -34,7 +34,7 @@ spec:
       persistentVolumeClaim:
         resources:
           requests:
-            storage: 6G
+            storage: 2G
     gracePeriod: 600
   haproxy:
     enabled: true

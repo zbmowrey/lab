@@ -5,6 +5,12 @@ SCRIPT_DIR="$(dirname "$SCRIPT_PATH")"
 source "$SCRIPT_DIR/lib/styles.sh"
 
 is_node_configured() {
+
+  ping -c1 -W1 "$1" &>/dev/null || {
+    error "IP $1 is not reachable."
+    exit 1
+  }
+
   local ip="$1"
   talosctl --nodes "$ip" --insecure get machineconfig &>/dev/null
 }

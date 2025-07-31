@@ -7,5 +7,5 @@ spec:
     - ReadWriteOnce
   resources:
     requests:
-      storage: 10Gi
-  storageClassName: microk8s-hostpath
+      storage: 3Gi
+  storageClassName: openebs

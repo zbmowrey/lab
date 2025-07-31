@@ -8,7 +8,7 @@ spec:
   enableSuperuserAccess: true
   storage:
     size: 2Gi
-    storageClass: microk8s-hostpath
+    storageClass: openebs
   bootstrap:
     initdb:
       database: formbricks

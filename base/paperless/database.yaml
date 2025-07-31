@@ -21,8 +21,8 @@ spec:
   imageName: ghcr.io/cloudnative-pg/postgresql:17
   enableSuperuserAccess: false
   storage:
-    size: 2Gi
-    storageClass: microk8s-hostpath
+    size: 5Gi
+    storageClass: openebs
   bootstrap:
     initdb:
       database: replace-me

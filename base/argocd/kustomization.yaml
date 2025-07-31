@@ -9,10 +9,10 @@ resources:
   - operator-postgres.yaml
   - operator-mysql.yaml
   - app-nfs-provisioner.yaml
-  - app-formbricks.yaml
-  - app-paperless.yaml
-  - app-n8n.yaml
-  - app-excalidraw.yaml
   - app-overseerr.yaml
-  - app-global-resources.yaml
-  - app-ghost.yaml
+##  - app-formbricks.yaml
+#  - app-paperless.yaml
+#  - app-n8n.yaml
+#  - app-excalidraw.yaml
+#  - app-global-resources.yaml
+#  - app-ghost.yaml
