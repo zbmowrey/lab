@@ -1,8 +1,0 @@
-apiVersion: pxc.percona.com/v1
-kind: PerconaXtraDBClusterBackup
-metadata:
-  name: ghost-db-manual-backup
-  namespace: mysql-operator
-spec:
-  pxcCluster: ghost-db
-  storageName: fs-pvc
